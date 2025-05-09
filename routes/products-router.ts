@@ -7,6 +7,6 @@ const productRouter = express.Router();
 
 productRouter.get("/product/",authenticateToken, productController.getProducts);
 productRouter.post("/product/",authenticateToken, productController.createProduct);
-productRouter.put("/product/",authenticateToken, productController.updateProduct);
-productRouter.delete("/product/",authenticateToken, productController.deleteProductById);
+productRouter.put("/product/:id",authenticateToken, productController.updateProduct);
+productRouter.delete("/product/:id",authenticateToken, productController.deleteProductById);
 export default productRouter
