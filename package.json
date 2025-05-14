@@ -15,7 +15,6 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
-    "chart.js": "^4.4.9",
     "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -25,7 +24,6 @@
     "mongoose": "^8.14.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "react-chartjs-2": "^5.3.0",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
