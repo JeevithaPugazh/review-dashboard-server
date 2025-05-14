@@ -1,4 +1,4 @@
-# # Revuhub - Review Aggregator Backend
+# Revuhub - Review Aggregator Backend
 
 This is the backend for a review aggregation web application. It provides RESTful endpoints for managing users, products, and reviews, with JWT-based authentication and MongoDB integration using Mongoose.
 ## 🚀 Features
