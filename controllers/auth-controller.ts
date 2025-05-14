@@ -31,7 +31,7 @@ export async function loginUser(
       }
 
       const token = generateToken(user.toObject());
-      res.status(200).json({ token });
+      res.status(200).json({ token, user });
     }
   } catch (error: any) {
     res.status(500).json({ error: error.message });

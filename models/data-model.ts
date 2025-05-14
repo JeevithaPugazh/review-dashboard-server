@@ -53,6 +53,7 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  
   description: {
     type: String,
     required: true,
@@ -120,8 +121,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    imageUrl:{
+      type:String,
+      required:false
+    },
+    imagePublicId: { type: String, default: null },
+    location: { type: String },
+    description: { type: String },
     services: [{ type: String }],
-    imageUrl: { type: String },
   },
   { timestamps: true }
 );

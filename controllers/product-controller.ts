@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import { Product } from "../models/data-model";
+import {
+  uploadToCloudinary,
+  removeFromCloudinary,
+} from "../services/cloudinary";
+import {
+  Product,
+  categoryServiceMap,
+} from "../models/data-model";
 import { AuthRequest } from "../middleware/auth-middleware";
 import mongoose from "mongoose";
 
@@ -21,14 +28,65 @@ async function getProducts(
   }
 }
 
+async function getProductsById(
+  req: AuthRequest,
+  res: Response
+): Promise<void> {
+  try {
+    const { id } = req.params;
+    const products = await Product.findById(id);
+    res.status(200).json(products);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+async function getCategories(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    res.status(200).json(categoryServiceMap);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 async function createProduct(
   req: AuthRequest,
   res: Response
 ): Promise<void> {
   try {
+    let imageUrl = "";
+    let imagePublicId = "";
+    const {
+      name,
+      location,
+      description,
+      category,
+      services
+    } = req.body;
+    const image = req.file;
+    if (image?.path) {
+      const result = await uploadToCloudinary(
+        image.path,
+        "products"
+      );
+      if (result) {
+        imageUrl = result.url;
+        imagePublicId = result.public_id;
+      }
+    }
+
     const product = await Product.create({
-      ...req.body,
+      name,
+      location,
+      description,
+      category,
+      services:JSON.parse(services),
       userId: req.userId,
+      imageUrl,
+      imagePublicId,
     });
     res.status(201).json(product);
   } catch (error: any) {
@@ -58,8 +116,14 @@ async function deleteProductById(
       return;
     }
 
+    if (deleteProduct.imagePublicId) {
+      await removeFromCloudinary(
+        deleteProduct.imagePublicId
+      );
+    }
+
     res.status(200).json({
-      message: `User ${deleteProduct.name} deleted successfully`,
+      message: `Product ${deleteProduct.name} deleted successfully`,
     });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -71,11 +135,42 @@ async function updateProduct(
   res: Response
 ): Promise<void> {
   try {
+    let imageUrl = "";
+    let imagePublicId = "";
     const { id } = req.params;
-    console.log(id)
+    const {
+      name,
+      location,
+      description,
+      category,
+      services
+    } = req.body;
+    const image = req.file;
+
+    if (image?.path) {
+      const result = await uploadToCloudinary(
+        image.path,
+        "products"
+      );
+      if (result) {
+        imageUrl = result.url;
+        imagePublicId = result.public_id;
+      }
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
-      { $set: req.body },
+      {
+        $set: {
+          name,
+          location,
+          description,
+          category,
+          services:JSON.parse(services),
+          imageUrl,
+          imagePublicId,
+        },
+      },
       { new: true }
     );
 
@@ -85,14 +180,16 @@ async function updateProduct(
 
     res.status(200).json(updatedProduct);
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 }
 
 export {
   getProducts,
+  getProductsById,
   createProduct,
   deleteProductById,
   updateProduct,
+  getCategories,
 };
