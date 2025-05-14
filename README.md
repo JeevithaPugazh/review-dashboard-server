@@ -9,6 +9,29 @@ This is the backend for a review aggregation web application. It provides RESTfu
 - ⚙️ RESTful structure using Express & TypeScript
 - 📁 Organized folder structure with models, routes, controllers, middleware, and utils
 
+###  🛠️ Backend Tech Stack
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+
+![RESTful API](https://img.shields.io/badge/RESTful_API-FF6F61?style=for-the-badge&logo=api&logoColor=white)
+
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+
+![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)
+
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+
+![DotEnv](https://img.shields.io/badge/.env-Secure%20Config-8DD6F9?style=for-the-badge&logo=dotenv&logoColor=black)
+
+
+
 ## ⚙️ Setup
 ### 1. Install dependencies:
 
@@ -96,13 +119,3 @@ PUT&nbsp;&nbsp;&nbsp;  |&nbsp; &nbsp; /api/product/:id&nbsp; &nbsp; |&nbsp; &nbs
 
 DELETE&nbsp;&nbsp;&nbsp;  |&nbsp; &nbsp; /api/product/:id&nbsp; &nbsp; |&nbsp; &nbsp; Delete product(Protected)&nbsp;&nbsp;
 
-## 🛠️ Tech Stack
-* Node.js & Express
-
-* MongoDB with Mongoose
-
-* TypeScript
-
-* JWT Authentication
-
-* Dotenv for environment management
