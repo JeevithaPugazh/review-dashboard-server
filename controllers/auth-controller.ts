@@ -1,12 +1,10 @@
 import Jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import {User} from "../models/data-model";
+import { User } from "../models/data-model";
 import { Request, Response } from "express";
 
 function generateToken(user: Object) {
-  return Jwt.sign(user, process.env.JWT_SECRET!, {
-    expiresIn: "1h",
-  });
+  return Jwt.sign(user, process.env.JWT_SECRET!);
 }
 
 export async function loginUser(

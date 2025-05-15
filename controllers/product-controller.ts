@@ -5,10 +5,12 @@ import {
 } from "../services/cloudinary";
 import {
   Product,
+  Review,
   categoryServiceMap,
 } from "../models/data-model";
 import { AuthRequest } from "../middleware/auth-middleware";
 import mongoose from "mongoose";
+import { getReviewMockData } from "../utils/MockData";
 
 async function getProducts(
   req: AuthRequest,
@@ -64,7 +66,7 @@ async function createProduct(
       location,
       description,
       category,
-      services
+      services,
     } = req.body;
     const image = req.file;
     if (image?.path) {
@@ -83,11 +85,20 @@ async function createProduct(
       location,
       description,
       category,
-      services:JSON.parse(services),
+      services: JSON.parse(services),
       userId: req.userId,
       imageUrl,
       imagePublicId,
     });
+
+    //Adding mock review
+    const reviews = getReviewMockData(
+      category,
+      product._id
+    );
+    if (reviews) {
+      await Review.create(reviews);
+    }
     res.status(201).json(product);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -143,7 +154,7 @@ async function updateProduct(
       location,
       description,
       category,
-      services
+      services,
     } = req.body;
     const image = req.file;
 
@@ -166,7 +177,7 @@ async function updateProduct(
           location,
           description,
           category,
-          services:JSON.parse(services),
+          services: JSON.parse(services),
           imageUrl,
           imagePublicId,
         },
